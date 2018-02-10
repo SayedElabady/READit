@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "28064559668",
+    "firebase_url": "https://readit-fa253.firebaseio.com",
+    "project_id": "readit-fa253",
+    "storage_bucket": "readit-fa253.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28064559668:android:0209fdd737bf95fc",
+        "android_client_info": {
+          "package_name": "capstone.udacity.com.readit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28064559668-4m1jqflcrj8edmve5luo0mq1qqnrbgtb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "capstone.udacity.com.readit",
+            "certificate_hash": "5ee51b340b2efe6f9f71fe47ab5c1432a4027cdd"
+          }
+        },
+        {
+          "client_id": "28064559668-vdbjh0qbppmt6d36b0rs30oe5apphj0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI-Iq9H9ushjroVmbywq-zdDQgFM0yJbY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28064559668-vdbjh0qbppmt6d36b0rs30oe5apphj0s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
