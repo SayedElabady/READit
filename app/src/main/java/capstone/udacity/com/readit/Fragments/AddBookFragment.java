@@ -69,6 +69,7 @@ public class AddBookFragment extends Fragment {
             bookToAdd.setBookName(bookName.getText().toString());
             bookToAdd.setDescription(description.getText().toString());
             bookToAdd.setCategory(category.getText().toString());
+
             if (imageUri != null) {
                 firebase.uploadImage(imageUri, bookToAdd.getBookName(), new OnUploadComplete() {
                     @Override

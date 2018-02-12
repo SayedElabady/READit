@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import capstone.udacity.com.readit.Listeners.OnAccountFetched;
 import capstone.udacity.com.readit.Listeners.OnFetchingCompleted;
 import capstone.udacity.com.readit.Listeners.OnUploadComplete;
 import capstone.udacity.com.readit.Models.Account;
@@ -81,6 +82,7 @@ public class Firebase {
 
     public void addBook(Book book, final OnFinishListener listener) {
         book.setOwnerID(uID);
+        book.setId(book.getOwnerID() + book.getBookName());
         database.getReference("books").child(uID).push().setValue(book)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -132,5 +134,21 @@ public class Firebase {
                         listener.onFailed(exception.getMessage());
                     }
                 });
+    }
+
+    public void getAccount(String uID, final OnAccountFetched listener) {
+        database.getReference("users").child(uID)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        listener.onSuccess(dataSnapshot.getValue(Account.class));
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        listener.onFailed(databaseError.getMessage());
+                    }
+                });
+
     }
 }

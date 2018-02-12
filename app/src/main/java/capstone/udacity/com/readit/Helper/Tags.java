@@ -8,4 +8,6 @@ public class Tags {
     public final static String ADD_BOOK_TAG = "addbook";
     public final static String VIEW_BOOKS_TAG = "viewbooks";
     public final static String VIEW_FAVOURITE_TAG = "viewfavourite";
+    public final static String VIEW_BOOK_DETAILS_TAG = "viewDetails";
+
 }

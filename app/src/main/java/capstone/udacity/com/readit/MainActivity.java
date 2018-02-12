@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void addFragment(Fragment toAdd, String tag) {
         if (fragmentManager.findFragmentByTag(tag) == null) {
-            fragmentManager.beginTransaction()
-                    .replace(FRAGMENT_CONTAINER, toAdd, tag)
-                    .commit();
+            FragmentTransaction mTransaction = fragmentManager.beginTransaction();
+            mTransaction.replace(FRAGMENT_CONTAINER , toAdd , tag);
+            mTransaction.commit();
         }
     }
 

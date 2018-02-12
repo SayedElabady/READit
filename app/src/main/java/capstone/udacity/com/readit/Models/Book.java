@@ -11,9 +11,19 @@ public class Book implements Parcelable {
     private String bookName;
     private String description;
     private String category;
+
+    public Book(String id , String bookName, String description, String category, String imageUri, String ownerID) {
+        this.id = id;
+        this.bookName = bookName;
+        this.description = description;
+        this.category = category;
+        this.imageUri = imageUri;
+        this.ownerID = ownerID;
+    }
+
     private String imageUri;
     private String ownerID;
-    int id;
+    String id;
     public Book(){}
     protected Book(Parcel in) {
         bookName = in.readString();
@@ -21,7 +31,7 @@ public class Book implements Parcelable {
         category = in.readString();
         imageUri = in.readString();
         ownerID = in.readString();
-        id = in.readInt();
+        id = in.readString();
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {
@@ -79,11 +89,11 @@ public class Book implements Parcelable {
         this.imageUri = imageUri;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -99,7 +109,7 @@ public class Book implements Parcelable {
         parcel.writeString(this.category);
         parcel.writeString(this.imageUri);
         parcel.writeString(this.ownerID);
-        parcel.writeInt(id);
+        parcel.writeString(this.id);
 
     }
 }

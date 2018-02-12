@@ -78,6 +78,10 @@ public class BooksFragment extends Fragment  implements OnBookClicked{
 
     @Override
     public void onClick(Book book) {
-        
+        ViewBookFragment viewBookFragment = new ViewBookFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("book" , book);
+        viewBookFragment.setArguments(bundle);
+        ((MainActivity) getActivity()).addFragment(viewBookFragment , Tags.VIEW_BOOK_DETAILS_TAG);
     }
 }

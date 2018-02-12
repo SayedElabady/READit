@@ -2,10 +2,12 @@ package capstone.udacity.com.readit.Adapters;
 
 import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.zakariya.stickyheaders.SectioningAdapter;
 
@@ -15,6 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import capstone.udacity.com.readit.Helper.Tags;
 import capstone.udacity.com.readit.Listeners.OnBookClicked;
 import capstone.udacity.com.readit.Listeners.OnRecyclerItemClicked;
 import capstone.udacity.com.readit.Models.Book;
@@ -29,48 +32,63 @@ public class BooksAdapter extends SectioningAdapter implements OnRecyclerItemCli
     List<Book> books;
     List<Section> sections = new ArrayList<>();
     OnBookClicked bookListener;
+
     @Override
     public void onItemClicked(int position) {
         bookListener.onClick(books.get(position));
     }
-    public BooksAdapter(OnBookClicked bookListener){
-        this.bookListener = bookListener;;
+
+    public BooksAdapter(OnBookClicked bookListener) {
+        this.bookListener = bookListener;
     }
+
     private class Section {
         String alpha;
         List<Book> books = new ArrayList<>();
     }
-    public class ItemViewHolder extends SectioningAdapter.ItemViewHolder implements View.OnClickListener{
+
+    public class ItemViewHolder extends SectioningAdapter.ItemViewHolder implements View.OnClickListener {
         TextView bookName;
-        OnRecyclerItemClicked listener ;
-        public ItemViewHolder(View itemView , OnRecyclerItemClicked listener) {
+        OnRecyclerItemClicked listener;
+
+        public ItemViewHolder(View itemView, OnRecyclerItemClicked listener) {
             super(itemView);
             this.listener = listener;
             bookName = itemView.findViewById(R.id.book_name_text);
+            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            listener.onItemClicked(getAdapterPosition());
+            int itemPosition = getAdapterPosition(), sectionPosition = super.getSection();
+            itemPosition -= (sectionPosition + 1) * 2;
+
+            listener.onItemClicked(itemPosition);
         }
     }
+
     public class HeaderViewHolder extends SectioningAdapter.HeaderViewHolder{
         TextView sectionChar;
+
         public HeaderViewHolder(View itemView) {
             super(itemView);
             sectionChar = itemView.findViewById(R.id.section_char);
 
         }
+
+
     }
+
     public static Comparator<Book> nameComparator = new Comparator<Book>() {
         @Override
         public int compare(Book e1, Book e2) {
-            return  (e1.getBookName().compareTo( e2.getBookName()));
+            return (e1.getBookName().compareTo(e2.getBookName()));
         }
     };
+
     public void setBooks(List<Book> books) {
+        Collections.sort(books, nameComparator);
         this.books = books;
-        Collections.sort(books , nameComparator);
         sections.clear();
         char alpha = 0;
 
@@ -100,6 +118,7 @@ public class BooksAdapter extends SectioningAdapter implements OnRecyclerItemCli
         } catch (Exception e) {
         }
     }
+
     @Override
     public int getNumberOfSections() {
         return sections.size();
@@ -143,6 +162,7 @@ public class BooksAdapter extends SectioningAdapter implements OnRecyclerItemCli
         Book book = s.books.get(itemIndex);
         holder.bookName.setText(book.getBookName());
     }
+
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindHeaderViewHolder(SectioningAdapter.HeaderViewHolder viewHolder, int sectionIndex, int headerType) {
