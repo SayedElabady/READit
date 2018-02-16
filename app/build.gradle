@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'key0'
+            keyPassword 'pass1234'
+            storeFile file("$rootDir/keystore.jks")
+            storePassword 'pass1234'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "capstone.udacity.com.readit"
@@ -14,12 +22,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.google.firebase:firebase-auth:11.0.4'
@@ -28,10 +37,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:11.0.4'
     compile 'com.android.support:cardview-v7:21.0.+'
     compile 'com.squareup.picasso:picasso:2.5.2'
-
     compile 'com.android.support:design:26.1.0'
     compile 'org.zakariya.stickyheaders:stickyheaders:0.7.6'
-
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

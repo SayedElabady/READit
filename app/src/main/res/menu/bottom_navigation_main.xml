@@ -4,14 +4,14 @@
     <item
         android:id="@+id/action_books"
         android:enabled="true"
-        android:title="Books"
+        android:title="@string/books"
         android:icon="@drawable/ic_library_books_black_24dp"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_favourite"
         android:enabled="true"
-        android:title="Favourite"
+        android:title="@string/favourite"
         android:icon="@drawable/ic_favorite_black_24dp"
         app:showAsAction="ifRoom" />
 

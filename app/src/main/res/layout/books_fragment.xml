@@ -22,6 +22,7 @@
         android:layout_marginRight="16dp"
         android:src="@drawable/ic_add_black_24dp"
         android:tint="@android:color/white"
+        android:contentDescription="@string/add_book"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -15,19 +15,19 @@
         android:id="@+id/book_name"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:hint="Book Name" />
+        android:hint="@string/book_name" />
 
     <EditText
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:hint="Description" />
+        android:hint="@string/description" />
 
     <EditText
         android:id="@+id/category"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:hint="Category"
+        android:hint="@string/category"
         android:inputType="textEmailAddress" />
 
     <Button
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:gravity="bottom"
-        android:text=" Add Book" />
+        android:text="@string/add_book" />
 
 
 </LinearLayout>

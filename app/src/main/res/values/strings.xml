@@ -2,4 +2,23 @@
     <string name="app_name">READit</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="add_book">add book</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="no_account_yet_create_one">No account yet? Create one.</string>
+    <string name="name">Name</string>
+    <string name="register">Register</string>
+    <string name="have_account_already_login">Have Account Already? Login!</string>
+    <string name="book_name">Book Name</string>
+    <string name="description">Description</string>
+    <string name="category">Category</string>
+    <string name="favourite">Favourite</string>
+    <string name="books">Books</string>
+    <string name="owner_info">Owner Info</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
+    <string name="ok">OK</string>
+    <string name="add_to_favourite">Add to Favourite</string>
+    <string name="books_are_empty">Books Are Empty</string>
 </resources>

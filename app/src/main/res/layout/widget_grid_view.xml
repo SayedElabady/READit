@@ -21,7 +21,7 @@
             android:layout_gravity="center"
             android:layout_margin="8dp"
             android:background="#09C"
-            android:text="Books Are Emprty"
+            android:text="@string/books_are_empty"
             android:textColor="#ffffff"
             android:textSize="24sp"
             android:textStyle="bold|italic" />

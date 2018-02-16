@@ -16,47 +16,48 @@
             android:id="@+id/email_register_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email" />
+            android:hint="@string/email" />
 
         <EditText
             android:id="@+id/password_register_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/name_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
+            android:hint="@string/name"
              />
 
         <EditText
             android:id="@+id/phone_register_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone" />
+            android:hint="@string/phone"
+            tools:ignore="TextFields" />
 
         <EditText
             android:id="@+id/address_register_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Address" />
+            android:hint="@string/address" />
 
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="register"
-            android:text="Register" />
+            android:text="@string/register" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="login"
-            android:text="Have Account Already? Login!" />
+            android:text="@string/have_account_already_login" />
 
 
     </LinearLayout>
