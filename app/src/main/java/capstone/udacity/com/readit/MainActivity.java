@@ -87,8 +87,7 @@ public class MainActivity extends AppCompatActivity {
         if (fragment != null)
             if (fragment.getTag().equals(Tags.VIEW_BOOKS_TAG) || fragment.getTag().equals(Tags.VIEW_FAVOURITE_TAG))
                 super.onBackPressed();
-            else
-                removeFragmentIfExists(fragment);
+
     }
 
 }

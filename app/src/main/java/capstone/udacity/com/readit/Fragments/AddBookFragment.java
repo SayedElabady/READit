@@ -85,6 +85,8 @@ public class AddBookFragment extends Fragment {
                     }
                 });
             }
+            else
+                Toast.makeText(getContext(), "Please Add photo to your book!", Toast.LENGTH_SHORT).show();
         } else
             Toast.makeText(getContext(), "Please fill the missing data", Toast.LENGTH_SHORT).show();
     }

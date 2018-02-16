@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +50,12 @@ public class ViewBookFragment extends Fragment {
     @BindView(R.id.phone)
     TextView phone;
     BooksDBHelper dbHelper;
+    boolean isFavourited = false;
+    @BindView(R.id.add_to_favourite)
+    Button addToFavourite;
+    @BindView(R.id.owner_layout)
+    LinearLayout ownerLayout;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,6 +66,7 @@ public class ViewBookFragment extends Fragment {
         Bundle arguments = getArguments();
         if (arguments != null) {
             viewedBook = arguments.getParcelable("book");
+            isFavourited = arguments.getBoolean("isFavourited");
             setViewsData();
         }
 
@@ -70,7 +79,11 @@ public class ViewBookFragment extends Fragment {
         description.setText(viewedBook.getDescription());
         category.setText(viewedBook.getCategory());
         Picasso.with(getContext()).load(viewedBook.getImageUri()).placeholder(R.drawable.ic_photo_size_select_actual_black_24dp).into(imageView);
-        setOwnerData();
+        if (isFavourited) {
+            ownerLayout.setVisibility(View.GONE);
+            addToFavourite.setVisibility(View.GONE);
+        } else
+            setOwnerData();
     }
 
     private void setOwnerData() {
@@ -97,16 +110,20 @@ public class ViewBookFragment extends Fragment {
 
     @OnClick(R.id.confirm_button)
     public void onOkClicked() {
-        ((MainActivity) getActivity()).replaceWithBooksFragment();
+        if (!isFavourited)
+            ((MainActivity) getActivity()).replaceWithBooksFragment();
+        else
+            ((MainActivity) getActivity()).replaceWithFavouritesFragment();
+
     }
 
     @OnClick(R.id.add_to_favourite)
     public void onFavouriteClicked() {
-        if (dbHelper.isExistInDB(viewedBook.getOwnerID() + viewedBook.getBookName())){
-            Toast.makeText(getContext() , "It's Already in favourites" , Toast.LENGTH_LONG).show();
-        }else {
+        if (dbHelper.isExistInDB(viewedBook.getOwnerID() + viewedBook.getBookName())) {
+            Toast.makeText(getContext(), "It's Already in favourites", Toast.LENGTH_LONG).show();
+        } else {
             dbHelper.addToFavourite(viewedBook);
-            Toast.makeText(getContext() , "Book is added to favourite" , Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Book is added to favourite", Toast.LENGTH_LONG).show();
 
         }
     }
