@@ -2,7 +2,6 @@ package capstone.udacity.com.readit.BusinessLayer;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,17 +17,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import capstone.udacity.com.readit.Listeners.OnAccountFetched;
 import capstone.udacity.com.readit.Listeners.OnFetchingCompleted;
+import capstone.udacity.com.readit.Listeners.OnFinishListener;
 import capstone.udacity.com.readit.Listeners.OnUploadComplete;
 import capstone.udacity.com.readit.Models.Account;
-import capstone.udacity.com.readit.Listeners.OnFinishListener;
 import capstone.udacity.com.readit.Models.Book;
 
 /**
@@ -45,7 +41,7 @@ public class Firebase {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
-        uID = auth.getCurrentUser().getUid();
+
     }
 
     public void login(String email, String password, final OnFinishListener listener) {
@@ -53,9 +49,11 @@ public class Firebase {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful())
+                        if (task.isSuccessful()) {
                             listener.onSuccess();
-                        else
+                            uID = auth.getCurrentUser().getUid();
+
+                        } else
                             listener.onFailed(task.getException().getMessage());
                     }
                 });
@@ -67,6 +65,7 @@ public class Firebase {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            uID = auth.getCurrentUser().getUid();
                             addAccount(account);
                             listener.onSuccess();
                         } else
@@ -76,11 +75,15 @@ public class Firebase {
     }
 
     public void addAccount(Account account) {
+        uID = auth.getCurrentUser().getUid();
+
         account.setuID(uID);
         database.getReference("users").child(uID).setValue(account);
     }
 
     public void addBook(Book book, final OnFinishListener listener) {
+        uID = auth.getCurrentUser().getUid();
+
         book.setOwnerID(uID);
         book.setId(book.getOwnerID() + book.getBookName());
         database.getReference("books").child(uID).push().setValue(book)
@@ -119,6 +122,7 @@ public class Firebase {
 
     public void uploadImage(Uri imageUri, String bookName, final OnUploadComplete listener) {
         StorageReference riversRef = storageReference.child("images");
+        uID = auth.getCurrentUser().getUid();
 
         riversRef.child(uID).child(bookName).putFile(imageUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

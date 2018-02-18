@@ -2,6 +2,7 @@ package capstone.udacity.com.readit;
 
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 
@@ -22,14 +23,23 @@ public class MainActivity extends AppCompatActivity {
     private final int FRAGMENT_CONTAINER = R.id.fragment_container;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigator;
-
+    Fragment content;
+    static String currentTag ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         fragmentManager = getSupportFragmentManager();
-        replaceWithBooksFragment();
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            content = getSupportFragmentManager().getFragment(savedInstanceState, "myFragmentName");
+            addFragment(content , currentTag);
+            
+        }else {
+            replaceWithBooksFragment();
+        }
         bottomNavigator.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -53,14 +63,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void replaceWithBooksFragment() {
+        currentTag = Tags.VIEW_BOOKS_TAG;
+
         BooksFragment booksFragment = new BooksFragment();
+        content = booksFragment;
         fragmentManager.beginTransaction()
                 .replace(FRAGMENT_CONTAINER, booksFragment , Tags.VIEW_BOOKS_TAG)
                 .commit();
     }
 
     public void replaceWithFavouritesFragment() {
+        currentTag = Tags.VIEW_FAVOURITE_TAG;
+
         FavouriteFragment favouriteFragment = new FavouriteFragment();
+        content = favouriteFragment;
         fragmentManager.beginTransaction()
                 .replace(FRAGMENT_CONTAINER, favouriteFragment , Tags.VIEW_FAVOURITE_TAG)
                 .commit();
@@ -68,9 +84,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void addFragment(Fragment toAdd, String tag) {
         if (fragmentManager.findFragmentByTag(tag) == null) {
+            content = toAdd;
             FragmentTransaction mTransaction = fragmentManager.beginTransaction();
             mTransaction.replace(FRAGMENT_CONTAINER , toAdd , tag);
             mTransaction.commit();
+            currentTag = tag;
         }
     }
 
@@ -90,4 +108,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        fragmentManager.putFragment(outState, "myFragmentName", content);
+        }
 }

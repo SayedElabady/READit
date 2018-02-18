@@ -1,6 +1,7 @@
 package capstone.udacity.com.readit.Fragments;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -46,6 +47,8 @@ public class AddBookFragment extends Fragment {
     public final static int SELECT_PICTURE = 21;
     @BindView(R.id.book_image)
     ImageView bookImage;
+    private boolean isUploading = false;
+    private Context context;
 
     @Nullable
     @Override
@@ -54,6 +57,12 @@ public class AddBookFragment extends Fragment {
         firebase = new Firebase();
         unbinder = ButterKnife.bind(this, addBookView);
         return addBookView;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        this.context = context;
+        super.onAttach(context);
     }
 
     @Override
@@ -71,39 +80,44 @@ public class AddBookFragment extends Fragment {
             bookToAdd.setCategory(category.getText().toString());
 
             if (imageUri != null) {
-                firebase.uploadImage(imageUri, bookToAdd.getBookName(), new OnUploadComplete() {
-                    @Override
-                    public void onSuccess(Uri downloadUrl) {
-                        bookToAdd.setImageUri(downloadUrl.toString());
-                        uploadBook(bookToAdd);
-                    }
+                if (!isUploading) {
 
-                    @Override
-                    public void onFailed(String errorMessage) {
-                        Toast.makeText(getContext(), "Error on Uploading the image," + errorMessage, Toast.LENGTH_SHORT).show();
-                        //       uploadBook(bookToAdd);
-                    }
-                });
-            }
-            else
-                Toast.makeText(getContext(), "Please Add photo to your book!", Toast.LENGTH_SHORT).show();
+                    isUploading = true;
+                    firebase.uploadImage(imageUri, bookToAdd.getBookName(), new OnUploadComplete() {
+                        @Override
+                        public void onSuccess(Uri downloadUrl) {
+                            bookToAdd.setImageUri(downloadUrl.toString());
+                            uploadBook(bookToAdd);
+
+                        }
+
+                        @Override
+                        public void onFailed(String errorMessage) {
+                            Toast.makeText(context, getString(R.string.error_uploading_image) + errorMessage, Toast.LENGTH_SHORT).show();
+                            //       uploadBook(bookToAdd);
+                            isUploading = false;
+                        }
+                    });
+                }
+            } else
+                Toast.makeText(context, R.string.add_photo, Toast.LENGTH_SHORT).show();
         } else
-            Toast.makeText(getContext(), "Please fill the missing data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.fill_data, Toast.LENGTH_SHORT).show();
     }
 
     private boolean isDataFilled() {
         boolean filled = true;
         if (bookName.getText().toString().equals("")) {
             filled = false;
-            bookName.setError("It's Mandatory field");
+            bookName.setError(getString(R.string.mandatort_field));
         }
         if (description.getText().toString().equals("")) {
             filled = false;
-            description.setError("It's Mandatory field");
+            description.setError(getString(R.string.mandatort_field));
         }
         if (category.getText().toString().equals("")) {
             filled = false;
-            category.setError("It's Mandatory field");
+            category.setError(getString(R.string.mandatort_field));
         }
         return filled;
     }
@@ -112,17 +126,19 @@ public class AddBookFragment extends Fragment {
         firebase.addBook(bookToAdd, new OnFinishListener() {
             @Override
             public void onSuccess() {
-                Toast.makeText(getActivity(), "Your Book has been added sucessfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.book_added, Toast.LENGTH_SHORT).show();
                 ((MainActivity) getActivity())
                         .removeFragmentIfExists(AddBookFragment.this);
                 ((MainActivity) getActivity())
                         .replaceWithBooksFragment();
+                isUploading = false;
 
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 Toast.makeText(getActivity(), "There was an error, " + errorMessage + " Try again later!", Toast.LENGTH_SHORT).show();
+                isUploading = false;
 
             }
         });
