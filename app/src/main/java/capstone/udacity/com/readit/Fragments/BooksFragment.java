@@ -68,7 +68,7 @@ public class BooksFragment extends Fragment  implements OnBookClicked{
 
             @Override
             public void onError(String errorMessage) {
-                Toast.makeText(getContext() , "there was error fetching the data, " + errorMessage , Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext() , getString(R.string.error_fetching) + errorMessage , Toast.LENGTH_LONG).show();
                 BooksService.startUpdateService(context , new ArrayList<Book>());
             }
         });

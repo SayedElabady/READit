@@ -51,13 +51,13 @@ public class RegisterActivity extends AppCompatActivity {
         firebase.createUser(account, new OnFinishListener() {
             @Override
             public void onSuccess() {
-                Toast.makeText(RegisterActivity.this , "Congrats you've registered successfully" ,Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this , R.string.registered_successfully ,Toast.LENGTH_SHORT).show();
                 moveToLogin();
             }
 
             @Override
             public void onFailed(String errorMessage) {
-                Toast.makeText(RegisterActivity.this , "There was a problem, " + errorMessage + "Try again later",Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this ,  getString(R.string.theres_problem) + errorMessage +  getString(R.string.try_again),Toast.LENGTH_SHORT).show();
 
             }
         });

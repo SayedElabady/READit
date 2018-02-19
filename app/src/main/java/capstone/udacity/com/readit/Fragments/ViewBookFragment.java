@@ -97,7 +97,7 @@ public class ViewBookFragment extends Fragment {
 
             @Override
             public void onFailed(String errorMessage) {
-                Toast.makeText(getContext(), "Error loading owner data, Try again Later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.error_loading, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -120,10 +120,10 @@ public class ViewBookFragment extends Fragment {
     @OnClick(R.id.add_to_favourite)
     public void onFavouriteClicked() {
         if (dbHelper.isExistInDB(viewedBook.getOwnerID() + viewedBook.getBookName())) {
-            Toast.makeText(getContext(), "It's Already in favourites", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), R.string.already_in_fav, Toast.LENGTH_LONG).show();
         } else {
             dbHelper.addToFavourite(viewedBook);
-            Toast.makeText(getContext(), "Book is added to favourite", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), R.string.book_added, Toast.LENGTH_LONG).show();
 
         }
     }

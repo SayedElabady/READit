@@ -55,13 +55,13 @@ public class LoginActivity extends AppCompatActivity {
         firebase.login(email , password , new OnFinishListener(){
             @Override
             public void onSuccess() {
-                Toast.makeText(LoginActivity.this , "You've Logged in successfully" ,Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this , R.string.logged_successfully ,Toast.LENGTH_SHORT).show();
                 moveToMain();
             }
 
             @Override
             public void onFailed(String errorMessage) {
-                Toast.makeText(LoginActivity.this , "There was a problem, " + errorMessage + " Please , Try again",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this , getString(R.string.theres_problem) + errorMessage + getString(R.string.try_again),Toast.LENGTH_SHORT).show();
 
             }
         });

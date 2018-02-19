@@ -26,4 +26,11 @@
     <string name="fill_data">Please fill the missing data</string>
     <string name="mandatort_field">It\'s Mandatory field</string>
     <string name="book_added">Your Book has been added sucessfully!</string>
+    <string name="logged_successfully">You\'ve Logged in successfully</string>
+    <string name="theres_problem">There was a problem,</string>
+    <string name="try_again">Please , Try again</string>
+    <string name="already_in_fav">It\'s Already in favourites</string>
+    <string name="error_loading">Error loading owner data, Try again Later</string>
+    <string name="error_fetching">there was error fetching the data,</string>
+    <string name="registered_successfully">Congrats you\'ve registered successfully</string>
 </resources>

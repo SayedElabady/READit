@@ -137,7 +137,7 @@ public class AddBookFragment extends Fragment {
 
             @Override
             public void onFailed(String errorMessage) {
-                Toast.makeText(getActivity(), "There was an error, " + errorMessage + " Try again later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getString(R.string.theres_problem) + errorMessage + getString(R.string.try_again), Toast.LENGTH_SHORT).show();
                 isUploading = false;
 
             }
